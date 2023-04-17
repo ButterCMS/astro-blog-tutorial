@@ -1,0 +1,65 @@
+---
+import { Icon } from 'astro-icon'
+import Post from '../components/Post.astro';
+import Layout from '../layouts/layout.astro';
+
+const searchValue = Astro.url.searchParams.get('search')
+
+const response = await fetch(`https://api.buttercms.com/v2/posts/search/?query=${searchValue}&auth_token=${import.meta.env.BUTTERCMS_READ_API}`)
+const posts = (await response.json()).data
+---
+
+<Layout>
+  <div class="searchPage wrapper">
+    <form class="search" action="search" method="get">
+      <input type="text" placeholder="find a post" name="search"/>
+      <button>
+        <Icon name="ic:baseline-search" />
+      </button>
+    </form>
+    
+    <div class="searchPage__results">
+      <h2>Results for: {searchValue}</h2>
+      <div class="searchPage__resultsList">
+        {posts.map(post => (
+          <Post 
+            img={post.featured_image}
+            tags={post.tags.map(tag => tag.name)}
+            title={post.title}
+            summary={post.summary}
+            author={post.author.first_name + "" + post.author.last_name}
+            slug={post.slug}
+            rotate={true}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+.searchPage {
+  padding: 0 20px;
+}
+
+.search {
+  margin: 0 auto;
+  margin-top: 20px;
+  height: 40px;
+}
+
+.searchPage__results h2 {
+  font-size: 32px;
+}
+
+.searchPage__results {
+  margin-top: 20px;
+}
+
+.searchPage__resultsList {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+</style>
