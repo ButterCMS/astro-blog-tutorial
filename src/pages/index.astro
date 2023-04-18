@@ -1,0 +1,200 @@
+---
+import { Icon } from 'astro-icon'
+import Post from '../components/Post.astro';
+import Layout from '../layouts/layout.astro';
+
+const response = await fetch(`https://api.buttercms.com/v2/posts/?exclude_body=true&auth_token=${import.meta.env.BUTTERCMS_READ_API}`)
+const posts = (await response.json()).data
+---
+
+<Layout>
+	<div class="hero wrapper">
+		<div class="hero__left">
+			<h2>
+				Tutorials, Stories, & Ideas about Astro and its eco-system
+			</h2>
+			<form class="search" action="search" method="get">
+				<input type="text" placeholder="find a post" name="search" />
+				<button>
+					<Icon name="ic:baseline-search" />
+				</button>
+			</form>
+		</div>
+		<div class="hero__right" style={`background-image: url(${posts[1].featured_image});`}>
+			<span>latest</span>
+			<a href={`blog/${posts[1].slug}`} class="right-arrow">&rarr;</a>
+			<div>
+				<h2>{posts[1].title}</h2>
+				<div class="hero__rightPostInfo">
+					<span>{posts[1].author.first_name + " " + posts[1].author.last_name}</span> 
+					<span>{new Date(posts[1].created).toISOString().split('T')[1]}</span>
+				</div>
+				<div class="tags">
+					{posts[1].tags.map(tag => 
+						<span>{tag.name}</span>
+					)}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="posts wrapper">
+		<div class="post__list">
+			{posts.slice(2).map(post => (
+				<Post 
+					img={post.featured_image}
+					tags={post.tags.map(tag => tag.name)}
+					title={post.title}
+					summary={post.summary}
+					author={post.author.first_name + "" + post.author.last_name}
+					slug={post.slug}
+				/>
+			))}
+		</div>
+		
+	</div>
+</Layout>
+
+<style>
+	.hero__left {
+		padding: 20px;
+	}
+
+	.hero__left h2 {
+		font-size: 48px;
+	}
+	
+	.hero__right {
+		width: 100%;
+		height: 350px;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
+		padding: 20px;
+		color: white;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.hero__right > span:nth-child(1) {
+		width: fit-content;
+		align-self: end;
+		border: 1px solid gainsboro;
+		padding: 3px 10px;
+		border-radius: 10px;
+	}
+
+	.hero__right h2 {
+		font-size: 38px;
+	}
+
+	.hero__rightPostInfo {
+		display: flex;
+		position: relative;
+	}
+
+	.hero__rightPostInfo span:first-child {
+		margin-right: 10px;
+	}
+ 
+	.hero__rightPostInfo span:first-child::after {
+		border-radius: 100%;
+    content: "";
+    border: 2px solid gainsboro;
+    bottom: 8px;
+    margin-left: 3px;
+    position: absolute;
+	}
+
+	.right-arrow {
+		position: absolute;
+    font-size: 25px;
+    border: 1px solid gainsboro;
+    border-radius: 100%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    right: 0;
+    top: 40%;
+    margin-right: 15px;
+		justify-content: center;
+		text-decoration: none;
+		color: white;
+	}
+
+	.right-arrow:hover {
+		background-color: #3f434c;
+	}
+
+	.posts {
+		margin-top: 50px;
+		width: 95%;
+		margin-bottom: 20px;
+	}
+
+	.posts h2 {
+		margin-bottom: 20px;
+	}
+
+	.post__list {
+		display: grid;
+		gap: 20px;
+	} 
+
+	@media(min-width: 500px) {
+		.post__list {
+			grid-template-columns: 1fr 1fr;
+			gap: 10px;
+		}
+}
+
+	@media (min-width: 620px) {
+		.hero {
+			display: flex;
+		}
+
+		.hero__left h2 {
+			font-size: 8vw;
+		}
+
+		.hero__left {
+			width: 50%;
+		}
+
+		.hero__right {
+			height: unset;
+			min-height: 400px;
+			width: 50%;
+			border-bottom-left-radius: 10px
+		}
+
+		.right-arrow {
+			width: 50px;
+			height: 50px;
+		}
+	}
+
+	@media (min-width: 768px) {
+		.hero__left h2 {
+			font-size: 7vw;
+		}
+
+		.post__list {
+			grid-template-columns: 1fr 1fr 1fr;
+		}
+
+		.right-arrow {
+			width: 70px;
+			height: 70px;
+		}
+	}
+
+	@media(min-width: 1024px) {
+		.hero__left h2 {
+			font-size: 68px;
+		}
+	}
+</style>

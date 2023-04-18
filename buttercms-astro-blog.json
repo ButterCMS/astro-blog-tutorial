@@ -1,0 +1,26 @@
+[
+  {
+    "topic": "Getting started with Astro",
+    "tags": ["beginner", "tools"],
+    "summary": "Learn about Astro, its use cases, pros and cons, and most know tools.",
+    "featuerd-image": "https://images.unsplash.com/photo-1673802358138-f4db90f3b976?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
+  },
+  {
+    "topic": "Implement a Typo-friendly Search Component in Astro",
+    "tags": ["search", "fuzzy"],
+    "summary": "Learn how to build a search component that returns closely matched results.",
+    "featuerd-image": "https://images.unsplash.com/photo-1677434853791-35560666da27?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80"
+  },
+  {
+    "topic": "Event bubbling and capturing in Astro",
+    "tags": ["event", "bubbling", "capturing"],
+    "summary": "Learn how to handle events in Astro through even delegation, propgation, bubbling, etc.",
+    "featuerd-image": "https://images.unsplash.com/photo-1677422516588-9bbdcfd1a31b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDV8Q0R3dXdYSkFiRXd8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
+  },
+  {
+    "topic": "Building a blog with Astro and ButterCMS",
+    "tags": ["blog", "tailwind", "cms"],
+    "summary": "Building a blog with Tailwind ButterCMS and Astro.",
+    "featuerd-image": "https://images.unsplash.com/photo-1642259105679-8f0801b89eaf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+  }
+]
